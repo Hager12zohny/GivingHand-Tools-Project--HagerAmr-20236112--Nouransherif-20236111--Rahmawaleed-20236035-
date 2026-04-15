@@ -1,0 +1,20 @@
+# Compiled files 
+target/ 
+*.class 
+# Eclipse files 
+.classpath 
+.project 
+.settings/ 
+# IDE files 
+.idea/ 
+*.iml 
+.vscode/ 
+# OS files 
+.DS_Store 
+Thumbs.db 
+# Logs 
+*.log 
+# Server files 
+*.war 
+*.deployed 
+*.failed 
