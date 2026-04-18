@@ -94,4 +94,39 @@ public class UserService {
         em.persist(user);
         return null; //success
     }
+    public AppUser findByEmail(String email) {
+        try {
+            return em.createQuery(
+                            "SELECT u FROM AppUser u WHERE u.email = :email", AppUser.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Map<String, String> updateProfile(Long userId, String name, String bio) {
+        Map<String, String> error = new HashMap<>();
+
+        if (name == null || name.trim().isEmpty()) {
+            error.put("field", "name");
+            error.put("message", "Name cannot be empty.");
+            return error;
+        }
+
+        AppUser user = em.find(AppUser.class, userId);
+        if (user == null) {
+            error.put("field", "id");
+            error.put("message", "User not found.");
+            return error;
+        }
+
+        user.setFullName(name.trim());
+        if (bio != null) {
+            user.setBio(bio.trim());
+        }
+
+        em.merge(user);
+        return null;
+    }
 }
